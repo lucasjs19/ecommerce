@@ -1,0 +1,26 @@
+<div class="container" *ngIf="order | async as orderData">
+    <mat-card class="card">
+        <mat-card-content>
+            <div>
+                <mat-card class="card">
+                    <mat-card-content>
+                        <h3>Pedido: {{orderData.id}}</h3>
+                        <h3>Cliente: {{orderData.client.name}}</h3>
+                        <h3>Status: {{ orderData.status == 'C' ? 'Cancelado' : (orderData.status == 'F' ? 'Finalizado' :
+                            'Pendente') }}
+                        </h3>
+                        <h3>Total: R$ {{getTotalPrize().toFixed(2)}}</h3>
+                        <mat-form-field>
+                            <mat-label>Condição de Pagamento</mat-label>
+                            <mat-select [(ngModel)]="selectedCondition" name="paymentCondition">
+                                @for (paymentCondition of paymentConditionsList; track paymentCondition) {
+                                <mat-option [value]="paymentCondition.id">{{paymentCondition.description}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-card-content>
+                    <button mat-raised-button color="primary" (click) = "onSave()">Finalizar Pedido</button>
+                </mat-card>
+            </div>
+        </mat-card-content></mat-card>
+</div>

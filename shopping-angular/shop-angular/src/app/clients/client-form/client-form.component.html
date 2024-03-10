@@ -1,0 +1,25 @@
+<div class="container">
+    <mat-card class="card">
+        <mat-card-content>
+            <div>
+                <mat-form-field>
+                    <mat-label>Nome do cliente</mat-label>
+                    <input [(ngModel)]="inputName" matInput>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <mat-label>E-mail do cliente</mat-label>
+                    <input [(ngModel)]="inputEmail" matInput placeholder="email@exemplo.com" [formControl]="email" required>
+                    @if (email.invalid) {
+                    <mat-error>{{getErrorMessage()}}</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" (click)="onSave()">Salvar</button>
+                <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

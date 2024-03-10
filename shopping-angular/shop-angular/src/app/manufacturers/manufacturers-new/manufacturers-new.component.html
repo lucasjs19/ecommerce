@@ -1,0 +1,16 @@
+<div class="container">
+    <mat-card class="card">
+        <mat-card-content>
+            <div>
+                <mat-form-field>
+                    <mat-label>Nome do fabricante</mat-label>
+                    <input [(ngModel)]="inputName" matInput>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" (click)="onSave()">Salvar</button>
+                <button mat-raised-button color="warn" (click)="onCancel()">Cancelar</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

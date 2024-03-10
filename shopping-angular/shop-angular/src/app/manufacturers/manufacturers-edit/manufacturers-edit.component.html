@@ -1,0 +1,17 @@
+
+<div class="container" *ngIf="manufacturer | async as manufacturerData">
+    <mat-card class="card">
+        <mat-card-content>
+            <div>
+                <mat-form-field>
+                    <mat-label>Nome do cliente</mat-label>
+                    <input matInput [(ngModel)]="manufacturerData.name">
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" (click) = "onSave(manufacturerData.name)">Salvar</button>
+                <button mat-raised-button color="warn" (click) = "onCancel()">Cancelar</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

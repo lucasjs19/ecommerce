@@ -1,0 +1,141 @@
+<div class="container">
+    <mat-card>
+        <mat-card-content>
+            <mat-toolbar color="primary">
+                <button mat-raised-button color="accent" (click)="onAdd()"><mat-icon>add_shopping_cart</mat-icon>Fazer Pedido</button>
+            </mat-toolbar>
+            <mat-tab-group>
+                <mat-tab label="Pedidos Pendentes">
+                    <table [dataSource]="pendingOrders" mat-table class="mat-elevation-z8">
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> Pedido </th>
+                            <td mat-cell *matCellDef="let order">{{order.id}} </td>
+                        </ng-container>
+
+                        <!-- Client Column -->
+                        <ng-container matColumnDef="client">
+                            <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                            <td mat-cell *matCellDef="let order">{{order.client.name}} </td>
+                        </ng-container>
+
+                        <!-- CreatedAt Column -->
+                        <ng-container matColumnDef="createdAt">
+                            <th mat-header-cell *matHeaderCellDef> Criado em </th>
+                            <td mat-cell *matCellDef="let order">{{ order.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                            </td>
+                        </ng-container>
+
+                        <!-- UpdatedAt Column -->
+                        <ng-container matColumnDef="updatedAt">
+                            <th mat-header-cell *matHeaderCellDef> Atualizado em </th>
+                            <td mat-cell *matCellDef="let order"> {{ order.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                            </td>
+                        </ng-container>
+
+                        <!-- Actions Column -->
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Ações</th>
+                            <td mat-cell *matCellDef="let order">
+                                <button mat-icon-button matTooltip="Editar Pedido" color="primary"
+                                    (click)="onEdit(order.id)"><mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-icon-button matTooltip="Cancelar Pedido" color="warn"
+                                    (click)="onCancel(order.id)"><mat-icon>block</mat-icon>
+                                </button>
+                                <button mat-icon-button matTooltip="Finalizar Pedido" style="color: green;"
+                                (click)="onFinish(order.id)"><mat-icon>done</mat-icon>
+                            </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-tab>
+
+                <mat-tab label="Pedidos Finalizados">
+                    <table [dataSource]="finishedOrders" mat-table class="mat-elevation-z8">
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> Pedido </th>
+                            <td mat-cell *matCellDef="let order">{{order.id}}</td>
+                        </ng-container>
+
+                        <!-- Client Column -->
+                        <ng-container matColumnDef="client">
+                            <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                            <td mat-cell *matCellDef="let order">{{order.client.name}}</td>
+                        </ng-container>
+
+                        <!-- CreatedAt Column -->
+                        <ng-container matColumnDef="createdAt">
+                            <th mat-header-cell *matHeaderCellDef> Criado em </th>
+                            <td mat-cell *matCellDef="let order">{{ order.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                        </ng-container>
+
+                        <!-- UpdatedAt Column -->
+                        <ng-container matColumnDef="updatedAt">
+                            <th mat-header-cell *matHeaderCellDef> Atualizado em </th>
+                            <td mat-cell *matCellDef="let order">{{ order.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Ações</th>
+                            <td mat-cell *matCellDef="let order">
+                                <button mat-icon-button matTooltip="Informações do Pedido" color="primary"
+                                    (click)="onInfo(order.id)"><mat-icon>info</mat-icon></button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-tab>
+                <mat-tab label="Pedidos Cancelados">
+                    <table [dataSource]="canceledOrders" mat-table class="mat-elevation-z8">
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> Pedido </th>
+                            <td mat-cell *matCellDef="let order">{{order.id}} </td>
+                        </ng-container>
+
+                        <!-- Client Column -->
+                        <ng-container matColumnDef="client">
+                            <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                            <td mat-cell *matCellDef="let order">{{order.client.name}} </td>
+                        </ng-container>
+
+                        <!-- CreatedAt Column -->
+                        <ng-container matColumnDef="createdAt">
+                            <th mat-header-cell *matHeaderCellDef> Criado em </th>
+                            <td mat-cell *matCellDef="let order">{{ order.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                            </td>
+                        </ng-container>
+
+                        <!-- UpdatedAt Column -->
+                        <ng-container matColumnDef="updatedAt">
+                            <th mat-header-cell *matHeaderCellDef> Atualizado em </th>
+                            <td mat-cell *matCellDef="let order"> {{ order.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Ações</th>
+                            <td mat-cell *matCellDef="let order">
+                                <button mat-icon-button matTooltip="Informações do Pedido" color="primary"
+                                    (click)="onInfo(order.id)"><mat-icon>info</mat-icon></button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+</div>

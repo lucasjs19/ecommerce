@@ -1,0 +1,59 @@
+<mat-card>
+    <mat-card-content>
+      <mat-toolbar color="primary">
+        <button mat-raised-button color="accent" (click)="onAdd()">Adicionar Fabricante</button>
+        <mat-form-field subscriptSizing="dynamic">
+          <input (keydown) = "onSearch()" [formControl]="searchControl" class="custom-input" matInput placeholder="Busque pelo nome do fabricante"> 
+        </mat-form-field>
+          
+      </mat-toolbar>
+  
+      <table mat-table [dataSource]="manufacturers" class="mat-elevation-z8">
+  
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let manufacturer"> {{manufacturer.id}} </td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nome </th>
+          <td mat-cell *matCellDef="let manufacturer"> {{manufacturer.name}} </td>
+        </ng-container>
+  
+        <!-- CreatedAt Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef> Criado em </th>
+          <td mat-cell *matCellDef="let manufacturer"> {{ manufacturer.createdAt | date:'dd/MM/yyyy HH:mm:ss' }} </td>
+        </ng-container>
+  
+        <!-- UpdatedAt Column -->
+        <ng-container matColumnDef="updatedAt">
+          <th mat-header-cell *matHeaderCellDef> Atualizado em </th>
+          <td mat-cell *matCellDef="let manufacturer"> {{manufacturer.updatedAt | date:'dd/MM/yyyy HH:mm:ss'}} </td>
+        </ng-container>    
+  
+           <!-- Active Column -->
+           <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef> Fabricante Ativo </th>
+            <td mat-cell *matCellDef="let manufacturer"> 
+              <mat-icon *ngIf="manufacturer.active" style="color: green;">check_circle</mat-icon>
+              <mat-icon *ngIf="!manufacturer.active" style="color: red;">cancel</mat-icon> </td>
+          </ng-container>    
+        
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let manufacturer">
+            <button mat-icon-button matTooltip = "Editar Fabricante" color="primary" (click) = "onEdit(manufacturer.id)"><mat-icon>edit</mat-icon></button>
+            <button *ngIf="manufacturer.active" mat-icon-button matTooltip = "Inativar Fabricante" color="warn" (click) = "onDeactivate(manufacturer.id)"><mat-icon>block</mat-icon></button>
+            <button *ngIf="!manufacturer.active" mat-icon-button matTooltip = "Ativar Fabricante" style = "color: green" (click) = "onActivate(manufacturer.id)"><mat-icon>check</mat-icon></button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>

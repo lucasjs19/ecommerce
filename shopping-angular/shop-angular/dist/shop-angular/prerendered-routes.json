@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/add-client",
+    "/add-client/add-client",
+    "/clients",
+    "/clients/add-client"
+  ]
+}
